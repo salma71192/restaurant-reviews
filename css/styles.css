@@ -103,10 +103,15 @@ header {
     text-decoration: underline;
 }
 /* ====================== Map ====================== */
-#map {
+.map-container {
+  margin-top: 126px;
   height: 400px;
   width: 100%;
   background-color: #ccc;
+}
+.map {
+  height: 100%;
+  width: 100%;
 }
 /* ====================== Restaurant Filtering ====================== */
 .filter-options {
