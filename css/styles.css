@@ -66,25 +66,37 @@ header {
   top: 0;
   left: 0;
   z-index: 99;
+  min-height: 140px;
+  max-height: 140px;
 }
 
 .site-title {
-  margin: auto;
-  font-size: 2em;
-  padding: 1em;
-  letter-spacing: 2px;
+  display:  block;
+  padding: calc((150px - 30px) /2) 0.6em;
+  margin: 0 auto -25px;
+  font-size: 1.7em;
+  letter-spacing: 0.5px;
 }
 
-@media screen and (max-width: 630px) {
+
+@media screen and (max-width: 650px) {
   body {
     font-size:14px;
   }
   .site-title {
-    font-size: 1.4em;
-    padding: 0.8em;
-    letter-spacing: 1px;
+    font-size: 1.5em;
+    letter-spacing: 0;
   }
 }
+
+@media screen and (max-width: 500px) {
+  .site-title {
+    font-size: 1.2em;
+    margin-bottom:  -6px;
+  }
+}
+
+
 
 .site-title a {
   color: #fff;
@@ -101,10 +113,11 @@ header {
     font-size: 1em;
     margin: 0;
     width: 100%;
+    display:  block;
 }
 
 /* Display list items side by side */
-.breadcrumb li {
+.breadcrumb ul li {
     display: inline;
 }
 
@@ -116,23 +129,24 @@ header {
 }
 
 /* Add a color to all links inside the list */
-.breadcrumb li a {
+.breadcrumb ul li a {
     color: #0275d8;
     text-decoration: none;
 }
 
 /* Add a color on mouse-over */
-.breadcrumb li a:hover {
+.breadcrumb ul li a:hover {
     color: #01447e;
     text-decoration: underline;
 }
 /* ====================== Map ====================== */
 .map-container {
-  margin-top: 126px;
+  margin-top: 140px;
   height: 488px;
   width: 100%;
   background-color: #ccc;
 }
+
 .map {
   height: 100%;
   width: 100%;
@@ -140,7 +154,7 @@ header {
 /* ====================== Restaurant Filtering ====================== */
 .filter-options {
   width: 100%;
-  padding: 1.2em 0;
+  padding: 1.2em;
   background-color: #3397DB;
   align-items: center;
 }
@@ -193,9 +207,14 @@ header {
 }
 
 @media screen and (max-width: 600px) {
+  .map-container {
+    margin-top: 140px;
+  }
+
   .restaurants-list{
     flex-flow: column;
   }
+
   .restaurants-list li {
     width: 80%;
   }
@@ -205,8 +224,8 @@ header {
   background-color: #ccc;
   display: block;
   margin: 0;
+  margin-bottom: 10px;
   max-width: 100%;
-  min-height: 248px;
   min-width: 100%;
 }
 
@@ -251,7 +270,7 @@ header {
 }
 
 .inside .map-container {
-  margin-top: 175px;
+  margin-top: 224px;
   max-width: 50%;
   min-height: 800px;
 }
@@ -259,7 +278,7 @@ header {
 .restaurant-container {
   max-width: 48%;
   padding: 0 1%;
-  margin-top: 175px;
+  margin-top: 225px;
 }
 
 @media screen and (max-width: 600px) {
@@ -276,7 +295,13 @@ header {
   .restaurant-container {
     min-width: 90%;
     padding: 1em 0;
-    margin: 100px auto 0;
+    margin: 200px auto 0;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .restaurant-container {
+    margin: 200px auto 0;
   }
 }
 
