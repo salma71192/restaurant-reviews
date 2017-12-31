@@ -72,8 +72,8 @@ header {
 
 .site-title {
   display:  block;
-  padding: calc((150px - 30px) /2) 0.6em;
-  margin: 0 auto -25px;
+  padding: calc((150px - 60px) /2);
+  margin: 0 auto 4px;
   font-size: 1.7em;
   letter-spacing: 0.5px;
 }
@@ -157,6 +157,7 @@ header {
   padding: 1.2em;
   background-color: #3397DB;
   align-items: center;
+  box-sizing: border-box;
 }
 .filter-options h2 {
   color: white;
