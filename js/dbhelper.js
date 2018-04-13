@@ -16,7 +16,22 @@ class DBHelper {
    * Fetch all restaurants.
    */
   static fetchRestaurants(callback) {
-
+    // Use fetch method to get the restaurants for the server.
+    fetch(DBHelper.DATABASE_URL, {
+      method: 'GET'
+    }).then((response) => {
+      if(response.ok) {
+        return response.json();
+      } else {
+        const error = (`Request failed. Returned status of ${response.status}`);
+        callback(error, null);
+      }
+    }, networkError => console.log(networkError.message))
+    .then(function(response) {
+      const restaurants = response;
+      callback(null, restaurants);
+    })
+    .catch(err => requetError(err));
   }
 
   /**
