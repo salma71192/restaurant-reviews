@@ -139,11 +139,13 @@ createRestaurantHTML = (restaurant) => {
 
   const li = document.createElement('li');
 
-  const image = document.createElement('img');
-  image.setAttribute('alt', restaurant.name + ' restaurant');
-  image.className = 'restaurant-img';
-  image.src = DBHelper.imageUrlForRestaurant(restaurant);
-  li.append(image);
+  if(restaurant.photograph) {
+    const image = document.createElement('img');
+    image.setAttribute('alt', restaurant.name + ' restaurant');
+    image.className = 'restaurant-img';
+    image.src = DBHelper.imageUrlForRestaurant(restaurant);
+    li.append(image);
+  }
 
   const name = document.createElement('h2');
   name.innerHTML = restaurant.name;
