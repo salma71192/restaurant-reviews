@@ -28,6 +28,7 @@ class DBHelper {
       }
     }, networkError => console.log(networkError.message))
     .then(function(response) {
+      console.log(response);
       const restaurants = response;
       callback(null, restaurants);
     })
