@@ -32,7 +32,7 @@ class DBHelper {
       const restaurants = response;
       callback(null, restaurants);
     })
-    .catch(err => requetError(err));
+  //  .catch(err => requetError(err));
   }
 
   /**

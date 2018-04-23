@@ -8,7 +8,7 @@ var idbApp = (function() {
     return;
   }
 
-  var dbPromise = idb.open('couches-n-restaurants', 1, function(upgradeDb) {
+  var dbPromise = idb.open('couches-n-restaurants', 3, function(upgradeDb) {
     switch (upgradeDb.oldVersion) {
       case 0:
         // a placeholder case so that the switch block will
@@ -18,7 +18,7 @@ var idbApp = (function() {
         console.log('Creating the restaurants object store');
         upgradeDb.createObjectStore('restaurants', {keyPath: 'id'});
 
-      // TODO 4.1 - create 'name' index
+      // create 'name' index
       case 2:
         console.log('Creating a name index');
         var store = upgradeDb.transaction.objectStore('restaurants');
@@ -26,8 +26,19 @@ var idbApp = (function() {
     }
   });
 
-  DBHelper.fetchRestaurants((error, restaurants) => {
-    console.log(restaurants);
-  });
+  // Store restaurants in IndexedDB
+  (function storeRestaurants() {
+    dbPromise.then(function(db) {
+      DBHelper.fetchRestaurants((error, restaurants) => {
+        console.log(restaurants);
 
+        var tx = db.transaction('restaurants', 'readwrite');
+        var store = tx.objectStore('restaurants');
+        return Promise.all(restaurants.map(function(restaurant){
+          return store.add(restaurant);
+        }))
+        .then(() => console.log('All restaurants have been added.'));
+      });
+    });
+  })();
 })();
