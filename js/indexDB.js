@@ -26,4 +26,8 @@ var idbApp = (function() {
     }
   });
 
+  DBHelper.fetchRestaurants((error, restaurants) => {
+    console.log(restaurants);
+  });
+
 })();
