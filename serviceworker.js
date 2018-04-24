@@ -34,7 +34,6 @@ self.addEventListener('fetch', function(event) {
       return fetch(event.request)
       // Add fetched files to the cache
       .then(function(response) {
-        // TODO 5 - Respond with custom 404 page
         return caches.open(CACHE_NAME).then(function(cache) {
           if (event.request.url.indexOf('test') < 0) {
             cache.put(event.request.url, response.clone());
@@ -42,9 +41,6 @@ self.addEventListener('fetch', function(event) {
           return response;
         });
       });
-
-    }).catch(function(error) {
-      // Respond with custom offline page
     })
   );
 });
