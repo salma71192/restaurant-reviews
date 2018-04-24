@@ -1,4 +1,4 @@
-var CACHE_NAME = 'my-site-cache-v1';
+var CACHE_NAME = 'my-site-cache-v2';
 
 // cache the application shell
 var urlsToCache = [
@@ -35,12 +35,31 @@ self.addEventListener('fetch', function(event) {
       // Add fetched files to the cache
       .then(function(response) {
         return caches.open(CACHE_NAME).then(function(cache) {
-          if (event.request.url.indexOf('test') < 0) {
-            cache.put(event.request.url, response.clone());
-          }
-          return response;
+          return fetch(event.request).then(function(response) {
+            cache.put(event.request, response.clone());
+            return response;
+          })
         });
       });
+    })
+  );
+});
+
+// Remove old cache versions
+self.addEventListener('activate', function(event) {
+  console.log('Activating new service worker...');
+
+  var cacheWhitelist = [CACHE_NAME];
+
+  event.waitUntil(
+    caches.keys().then(function(cacheNames) {
+      return Promise.all(
+        cacheNames.map(function(cacheName) {
+          if (cacheWhitelist.indexOf(cacheName) === -1) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
     })
   );
 });
