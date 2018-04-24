@@ -32,13 +32,19 @@ self.addEventListener('fetch', function(event) {
       }
       console.log('Network request for ', event.request.url);
       return fetch(event.request)
-
       // Add fetched files to the cache
+      .then(function(response) {
+        // TODO 5 - Respond with custom 404 page
+        return caches.open(CACHE_NAME).then(function(cache) {
+          if (event.request.url.indexOf('test') < 0) {
+            cache.put(event.request.url, response.clone());
+          }
+          return response;
+        });
+      });
 
     }).catch(function(error) {
-
       // Respond with custom offline page
-
     })
   );
 });
