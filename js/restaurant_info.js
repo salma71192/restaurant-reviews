@@ -6,12 +6,13 @@ var map;
  */
 window.initMap = () => {
   fetchRestaurantFromURL((error, restaurant) => {
+    var latlng = restaurant.latlng;
     if (error) { // Got an error!
       console.error(error);
     } else {
       self.map = new google.maps.Map(document.getElementById('map'), {
         zoom: 16,
-        center: restaurant.latlng,
+        center: latlng,
         scrollwheel: false
       });
       fillBreadcrumb();

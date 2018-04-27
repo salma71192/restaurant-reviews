@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -18,7 +18,7 @@
     <!-- Beginning breadcrumb -->
     <nav aria-label="Breadcrumb" class="breadcrumb" id="breadcrumb" >
       <ul id="breadcrumb-ul">
-        <li><a href="/" role="link" aria-current="page">Home</a></li>
+        <li><a href="/" aria-current="page">Home</a></li>
       </ul>
     </nav>
     <!-- End breadcrumb -->
@@ -46,7 +46,7 @@
     <!-- End map -->
 
     <!-- Beginning reviews -->
-    <div class="reviews-container" id="reviews-container" role="reviews">
+    <div class="reviews-container" id="reviews-container">
       <ul class="reviews-list" id="reviews-list" ></ul>
     </div>
     <!-- End reviews -->
@@ -55,35 +55,21 @@
 
   <!-- Beginning footer -->
   <footer class="footer" id="footer">
-    Copyright (c) 2017 <a href="/" role="link"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
+    Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
   </footer>
   <!-- End footer -->
 
   <!-- Beginning scripts -->
-
-  <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
-  <script>
-    // Initialize Firebase
-    var config = {
-      apiKey: "AIzaSyB-y8YAzHg_FA6nrTWE-X0qfgkIJ6K6qVk",
-      authDomain: "restauant-review.firebaseapp.com",
-      databaseURL: "https://restauant-review.firebaseio.com",
-      projectId: "restauant-review",
-      storageBucket: "restauant-review.appspot.com",
-      messagingSenderId: "188336553515"
-    };
-    firebase.initializeApp(config);
-  </script>
-  <!-- Database helpers -->
-  <script type="text/javascript" src="js/dbhelper.js"></script>
-  <!-- indexedDB Promise -->
-  <script type="text/javascript" src="js/idb.js"></script>
-  <script type="text/javascript" src="js/indexDB.js"></script>
-  <!-- Main javascript file -->
-  <script type="text/javascript" src="js/restaurant_info.js"></script>
   <!-- Google Maps -->
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_tKbW6A5pQ-eupxI56myUnHLqYCzOjKo&libraries=places&callback=initMap"></script>
-  <!-- End scripts -->
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApi0uMXZxd7Qw38f7sOKlBuD1uMXNM_3c&libraries=places&callback=initMap"></script>
+  <!-- Database helpers -->
+  <script src="js/dbhelper.js"></script>
+  <!-- indexedDB Promise -->
+  <script src="js/idb.js"></script>
+  <script src="js/indexDB.js"></script>
+  <!-- Main javascript file -->
+  <script src="js/restaurant_info.js"></script>
+<!-- End scripts -->
 
 </body>
 

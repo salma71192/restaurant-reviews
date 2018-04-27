@@ -1,11 +1,13 @@
-var CACHE_NAME = 'my-site-cache-2';
+var CACHE_NAME = 'my-site-cache-4';
 
 // cache the application shell
 var urlsToCache = [
   'css/',
   'js/',
   'data/',
-  'img/'
+  'img/',
+  'index.html',
+  'restaurant.html'
 ];
 
 self.addEventListener('install', function(event) {
