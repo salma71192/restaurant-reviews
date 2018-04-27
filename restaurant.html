@@ -61,6 +61,19 @@
 
   <!-- Beginning scripts -->
 
+  <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyB-y8YAzHg_FA6nrTWE-X0qfgkIJ6K6qVk",
+      authDomain: "restauant-review.firebaseapp.com",
+      databaseURL: "https://restauant-review.firebaseio.com",
+      projectId: "restauant-review",
+      storageBucket: "restauant-review.appspot.com",
+      messagingSenderId: "188336553515"
+    };
+    firebase.initializeApp(config);
+  </script>
   <!-- Database helpers -->
   <script type="text/javascript" src="js/dbhelper.js"></script>
   <!-- indexedDB Promise -->

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+2<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -43,7 +43,20 @@
     </footer>
 
 
-    <script type="application/javascript" charset="utf-8" src="js/dbhelper.js"></script>    
+    <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyB-y8YAzHg_FA6nrTWE-X0qfgkIJ6K6qVk",
+        authDomain: "restauant-review.firebaseapp.com",
+        databaseURL: "https://restauant-review.firebaseio.com",
+        projectId: "restauant-review",
+        storageBucket: "restauant-review.appspot.com",
+        messagingSenderId: "188336553515"
+      };
+      firebase.initializeApp(config);
+    </script>
+    <script type="application/javascript" charset="utf-8" src="js/dbhelper.js"></script>
     <!-- indexedDB Promise -->
     <script type="text/javascript" src="js/idb.js"></script>
     <script type="text/javascript" src="js/indexDB.js"></script>
