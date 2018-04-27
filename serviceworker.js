@@ -1,12 +1,11 @@
-var CACHE_NAME = 'my-site-cache-v2';
+var CACHE_NAME = 'my-site-cache-2';
 
 // cache the application shell
 var urlsToCache = [
-  '/',
-  '/css/',
-  '/js/',
-  '/data/',
-  '/img/'
+  'css/',
+  'js/',
+  'data/',
+  'img/'
 ];
 
 self.addEventListener('install', function(event) {
