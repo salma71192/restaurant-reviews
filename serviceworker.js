@@ -1,11 +1,11 @@
-var CACHE_NAME = 'my-site-cache-4';
+var CACHE_NAME = 'my-site-cache-5';
 
 // cache the application shell
 var urlsToCache = [
   'css/',
-  'js/',
-  'data/',
-  'img/',
+  //'js/',
+  //'data/',
+  //'img/',
   'index.html',
   'restaurant.html'
 ];
@@ -15,7 +15,6 @@ self.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(function(cache) {
-        console.log('Opened cache');
         return cache.addAll(urlsToCache);
       })
   );
@@ -24,11 +23,9 @@ self.addEventListener('install', function(event) {
 // Intercept network requests
 
 self.addEventListener('fetch', function(event) {
-  console.log('Fetch event for ', event.request.url);
   event.respondWith(
     caches.match(event.request).then(function(response) {
       if (response) {
-        console.log('Found ', event.request.url, ' in cache');
         return response;
       }
       console.log('Network request for ', event.request.url);
@@ -48,10 +45,7 @@ self.addEventListener('fetch', function(event) {
 
 // Remove old cache versions
 self.addEventListener('activate', function(event) {
-  console.log('Activating new service worker...');
-
   var cacheWhitelist = [CACHE_NAME];
-
   event.waitUntil(
     caches.keys().then(function(cacheNames) {
       return Promise.all(
