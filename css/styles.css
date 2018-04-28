@@ -246,7 +246,7 @@ header {
 }
 
 .restaurants-list li a {
-  background-color: orange;
+  background-color: #DB2000;
   /* border-bottom: 3px solid #eee; */
   color: #fff;
   display: inline-block;
