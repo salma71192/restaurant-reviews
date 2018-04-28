@@ -49,7 +49,7 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
 
 .footer {
   background-color: #444;
-  color: #aaa;
+  color: #DEDEDE;
   font-size: 0.5em;
   letter-spacing: 1px;
   padding: 1.5em;
@@ -155,7 +155,7 @@ header {
 .filter-options {
   width: 100%;
   padding: 1.2em;
-  background-color: #3397DB;
+  background-color: #2078B6;
   align-items: center;
   box-sizing: border-box;
 }
