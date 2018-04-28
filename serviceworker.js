@@ -4,6 +4,7 @@ var CACHE_NAME = 'version-6';
 var urlsToCache = [
   'css/',
   'js/',
+  'img/sandwich.png',
   'index.html',
   'restaurant.html'
 ];
