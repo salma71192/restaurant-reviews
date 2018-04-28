@@ -1,4 +1,4 @@
-var CACHE_NAME = 'version-6';
+var CACHE_NAME = 'version-7';
 
 // cache the application shell
 var urlsToCache = [
