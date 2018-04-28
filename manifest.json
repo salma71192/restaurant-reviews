@@ -1,0 +1,15 @@
+{
+  "short_name": "Restaurant Reviews",
+  "name": "Restaurant Reviews",
+  "icons": [
+    {
+      "src":"img/sandwich-icon192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#fdfdfd",
+  "Theme_color": "#2078B6",
+  "display": "standalone"
+}
