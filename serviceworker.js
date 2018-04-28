@@ -1,11 +1,9 @@
-var CACHE_NAME = 'my-site-cache-5';
+var CACHE_NAME = 'version-6';
 
 // cache the application shell
 var urlsToCache = [
   'css/',
-  //'js/',
-  //'data/',
-  //'img/',
+  'js/',
   'index.html',
   'restaurant.html'
 ];
@@ -28,7 +26,6 @@ self.addEventListener('fetch', function(event) {
       if (response) {
         return response;
       }
-      console.log('Network request for ', event.request.url);
       return fetch(event.request)
       // Add fetched files to the cache
       .then(function(response) {
