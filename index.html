@@ -1,0 +1,62 @@
+2<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <!--
+      manifest.json provides metadata used when your web app is added to the
+      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
+    -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="Description" content="Restaurant reviews main page">
+    <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
+    <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Restaurant Reviews</title>
+  </head>
+
+  <body>
+    <header>
+        <h1 class="site-title"><a href="/" role="link">Restaurant Reviews</a></h1>
+    </header>
+
+    <main id="maincontent" aria-label="main">
+      <div role="application" class="map-container" id="map-container">
+        <div class="map" id="map"></div>
+      </div>
+
+      <section aria-label="Filter Results">
+        <div class="filter-options">
+          <h2>Filter Results</h2>
+          <label for="neighborhoods-select">
+            <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
+              <option value="all">All Neighborhoods</option>
+            </select>
+          </label>
+
+          <label for="cuisines-select">
+            <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
+              <option value="all">All Cuisines</option>
+            </select>
+          </label>
+        </div>
+        <ul class="restaurants-list" id="restaurants-list"></ul>
+      </section>
+
+    </main>
+
+    <footer class="footer" id="footer">
+      Copyright (c) 2017 <a href="/" role="link"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
+    </footer>
+
+
+    <script type="application/javascript" charset="utf-8" src="js/dbhelper.js"></script>
+    <!-- indexedDB Promise -->
+    <script type="text/javascript" src="js/idb.js"></script>
+    <script type="text/javascript" src="js/indexDB.js"></script>
+    <script type="application/javascript" charset="utf-8" src="js/main.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApi0uMXZxd7Qw38f7sOKlBuD1uMXNM_3c&libraries=places&callback=initMap"></script>
+  </body>
+
+</html>
