@@ -1,10 +1,16 @@
-var CACHE_NAME = 'version-8';
+var CACHE_NAME = 'version-12';
 
 // cache the application shell
 var urlsToCache = [
-  '/css/',
-  '/js/',
-  '/img/sandwich.png'
+  '/',
+  'index.html',
+  'restaurant.html',
+  'css/styles.css',
+  'js/dbhelper.js',
+  'js/idb.js',
+  'js/main.js',
+  'js/restaurant_info.js',
+  'img/sandwich.png'
 ];
 
 self.addEventListener('install', function(event) {
@@ -40,14 +46,7 @@ self.addEventListener('fetch', function(event) {
 });
 
 function createDB() {
-    'use strict';
-
-    // check for support
-    if (!('indexedDB' in window)) {
-        console.log('This browser doesn\'t support IndexedDB');
-        return;
-    }
-    var dbPromise = idb.open('couches-n-restaurants', 5, function(upgradeDb) {
+  var dbPromise = idb.open('couches-n-restaurants', 5, function(upgradeDb) {
         switch (upgradeDb.oldVersion) {
             case 0:
                 // a placeholder case so that the switch block will

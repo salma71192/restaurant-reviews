@@ -1,9 +1,11 @@
 {
+  "lang": "en",
+  "dir": "ltr",
   "short_name": "Restaurant Reviews",
   "name": "Restaurant Reviews 1",
   "icons": [
     {
-      "src": "icon-192x192.png",
+      "src": "img/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     }
