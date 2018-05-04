@@ -1,0 +1,40 @@
+<IfModule mod_headers.c>
+    # Serve gzip compressed CSS files if they exist
+    # and the client accepts gzip.
+    RewriteCond "%{HTTP:Accept-encoding}" "gzip"
+    RewriteCond "%{REQUEST_FILENAME}\.gz" -s
+    RewriteRule "^(.*)\.css" "$1\.css\.gz" [QSA]
+
+    # Serve gzip compressed JS files if they exist
+    # and the client accepts gzip.
+    RewriteCond "%{HTTP:Accept-encoding}" "gzip"
+    RewriteCond "%{REQUEST_FILENAME}\.gz" -s
+    RewriteRule "^(.*)\.js" "$1\.js\.gz" [QSA]
+
+    # Serve gzip compressed image files if they exist
+    # and the client accepts gzip.
+    RewriteCond "%{HTTP:Accept-encoding}" "gzip"
+    RewriteCond "%{REQUEST_FILENAME}\.gz" -s
+    RewriteRule "^(.*)\.webp" "$1\.webp\.gz" [QSA]
+
+    # Serve gzip compressed image files if they exist
+    # and the client accepts gzip.
+    RewriteCond "%{HTTP:Accept-encoding}" "gzip"
+    RewriteCond "%{REQUEST_FILENAME}\.gz" -s
+    RewriteRule "^(.*)\.png" "$1\.png\.gz" [QSA]
+
+    # Serve correct content types, and prevent mod_deflate double gzip.
+    RewriteRule "\.css\.gz$" "-" [T=text/css,E=no-gzip:1]
+    RewriteRule "\.js\.gz$" "-" [T=text/javascript,E=no-gzip:1]
+    RewriteRule "\.webp\.gz$" "-" [T=image/webp,E=no-gzip:1]
+    RewriteRule "\.png\.gz$" "-" [T=image/png,E=no-gzip:1]
+
+    <FilesMatch "(\.js\.gz|\.css\.gz|\.webp\.gz|\.png\.gz)$">
+      # Serve correct encoding type.
+      Header append Content-Encoding gzip
+
+      # Force proxies to cache gzipped &
+      # non-gzipped css/js files separately.
+      Header append Vary Accept-Encoding
+    </FilesMatch>
+</IfModule>
