@@ -1,7 +1,7 @@
 var window = self;
 importScripts('./js/idb.js');
 importScripts('./js/dbhelper.js');
-var CACHE_NAME = 'version-12';
+var CACHE_NAME = 'version-13';
 
 // cache the application shell
 var urlsToCache = [
@@ -9,8 +9,6 @@ var urlsToCache = [
   'index.html',
   'restaurant.html',
   'css/styles.css',
-  'js/dbhelper.js',
-  'js/idb.js',
   'js/main.js',
   'js/restaurant_info.js',
   'img/sandwich.png'
@@ -95,24 +93,19 @@ function createDB() {
 
 // Remove old cache versions
 self.addEventListener('activate', function(event) {
-
-    console.log('Activating new service worker...');
-
-    var cacheWhitelist = [CACHE_NAME];
-
+  console.log('Activating new service worker...');
     event.waitUntil(
-      /*
-      new Promise(function(resoled, rejected) {
-        caches.keys().then(function(cacheNames) {
-          return Promise.all(
-            cacheNames.map(function(cacheName) {
-              if (cacheWhitelist.indexOf(cacheName) === -1) {
-                return caches.delete(cacheName);
-              }
-            })
-          );
-        })
-      })*/
       createDB()
-    );
+    /*caches.keys().then(function(cacheNames) {
+      return Promise.all(
+        cacheNames.filter(function(cacheName) {
+          // Return true if you want to remove this cache,
+          // but remember that caches are shared across
+          // the whole origin
+        }).map(function(cacheName) {
+          return caches.delete(cacheName);
+        })
+      );
+    })*/
+  )
 });
