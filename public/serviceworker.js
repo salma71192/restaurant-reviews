@@ -6,11 +6,11 @@ var CACHE_NAME = 'version-13';
 // cache the application shell
 var urlsToCache = [
   '/',
+  'dist/',
   'index.html',
   'restaurant.html',
-  'css/styles.css',
-  'js/main.js',
-  'js/restaurant_info.js',
+  'css/',
+  'js/',
   'img/sandwich.png'
 ];
 
