@@ -1,6 +1,5 @@
 const gulp = require('gulp');
 const webp = require('gulp-webp');
-const concat = require('gulp-concat');
 const minify = require('gulp-minify');
 const cleanCss = require('gulp-clean-css');
 
@@ -12,7 +11,6 @@ gulp.task('convert-to-webp', function() {
 
 gulp.task('pack-js', function () {
 	return gulp.src(['js/*.js'])
-		.pipe(concat('bundle.js'))
 		.pipe(minify({
       	ext:{
       		min:'.js'
@@ -24,7 +22,6 @@ gulp.task('pack-js', function () {
 
 gulp.task('pack-css', function () {
 	return gulp.src(['css/*.css'])
-		.pipe(concat('stylesheet.css'))
 		.pipe(cleanCss())
    .pipe(gulp.dest('build/css'));
 });
