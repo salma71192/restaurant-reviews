@@ -1,16 +1,15 @@
 var window = self;
-importScripts('./js/idb.js');
-importScripts('./js/dbhelper.js');
+importScripts('./build/js/idb.js');
+importScripts('./build/js/dbhelper.js');
 var CACHE_NAME = 'version-13';
 
 // cache the application shell
 var urlsToCache = [
   '/',
-  'dist/',
   'index.html',
   'restaurant.html',
-  'css/',
-  'js/',
+  'build/css/',
+  'build/js/',
   'img/sandwich.png'
 ];
 
