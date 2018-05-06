@@ -1,12 +1,12 @@
 {  "short_name": "Restaurant Reviews",
-  "name": "Restaurant Reviews 1",
+  "name": "Restaurant Reviews",
   "icons": [
     {
-      "src": "./img/icon-192x192.png",
-      "sizes": "192x192",
+      "src": "img/sandwich.png",
+      "sizes": "265x265",
       "type": "image/png"
     }
   ],
-  "start_url": "./index.html",
+  "start_url": "index.html",
   "display": "standalone"
 }
