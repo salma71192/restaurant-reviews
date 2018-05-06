@@ -1,59 +1,58 @@
-2<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="Description" content="Restaurant reviews main page">
-    <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" defer>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Coda" defer>
-    <link rel="stylesheet" href="build/css/main.css">
-    <link rel="stylesheet" href="build/css/restaurant-info.css" defer>
-    <link href="build/css/small.css" rel="stylesheet" media="(max-width: 400px)">
-    <link href="build/css/medium600.css" rel="stylesheet" media="(max-width: 600px)">
-    <title>Restaurant Reviews</title>
-    <link rel="manifest" href="./manifest.json">
-  </head>
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Important meta -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="Description" content="Restaurant single detailed page">
+  <meta theme_color="000000" >
+  <!-- External stylesheet -->
+  <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" defer>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Coda" defer>
+  <!-- Main stylesheets -->
+  <link rel="stylesheet" href="build/css/main.css">
+  <link rel="stylesheet" href="build/css/restaurant-info.css" defer>
+  <link href="build/css/small.css" rel="stylesheet" media="(max-width: 400px)">
+  <link href="build/css/medium600.css" rel="stylesheet" media="(max-width: 600px)">
+  <!-- title -->
+  <title>Restaurant reviews</title>
+  <!-- Manifest file -->
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+	<header>
+		<h1 class="site-title"><a href="/" role="link">Restaurant Reviews</a></h1>
+	</header>
+	<main aria-label="main" id="maincontent">
+		<div class="map-container" id="map-container" role="application">
+			<div class="map" id="map"></div>
+		</div>
+		<section aria-label="Filter Results">
+			<div class="filter-options">
+				<h2>Filter Results</h2><label for="neighborhoods-select"><select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
+					<option value="all">
+						All Neighborhoods
+					</option>
+				</select></label> <label for="cuisines-select"><select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
+					<option value="all">
+						All Cuisines
+					</option>
+				</select></label>
+			</div>
+			<ul class="restaurants-list" id="restaurants-list"></ul>
+		</section>
+	</main>
+	<footer class="footer" id="footer">
+		Copyright (c) 2017 <a href="/" role="link"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
+	</footer>
+	<script charset="utf-8" defer src="build/js/dbhelper.js" type="application/javascript">
+	</script> <!-- indexedDB Promise -->
 
-  <body>
-    <header>
-        <h1 class="site-title"><a href="/" role="link">Restaurant Reviews</a></h1>
-    </header>
-
-    <main id="maincontent" aria-label="main">
-      <div role="application" class="map-container" id="map-container">
-        <div class="map" id="map"></div>
-      </div>
-
-      <section aria-label="Filter Results">
-        <div class="filter-options">
-          <h2>Filter Results</h2>
-          <label for="neighborhoods-select">
-            <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
-              <option value="all">All Neighborhoods</option>
-            </select>
-          </label>
-
-          <label for="cuisines-select">
-            <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
-              <option value="all">All Cuisines</option>
-            </select>
-          </label>
-        </div>
-        <ul class="restaurants-list" id="restaurants-list"></ul>
-      </section>
-
-    </main>
-
-    <footer class="footer" id="footer">
-      Copyright (c) 2017 <a href="/" role="link"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
-    </footer>
-
-
-    <script defer type="application/javascript" charset="utf-8" src="build/js/dbhelper.js"></script>
-    <!-- indexedDB Promise -->
-    <script defer type="text/javascript" src="build/js/idb.js"></script>
-    <script defer type="application/javascript" charset="utf-8" src="build/js/main.js"></script>
-    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApi0uMXZxd7Qw38f7sOKlBuD1uMXNM_3c&libraries=places&callback=initMap"></script>
-  </body>
-
+	<script defer src="build/js/idb.js" type="text/javascript">
+	</script>
+	<script charset="utf-8" defer src="build/js/main.js" type="application/javascript">
+	</script>
+	<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApi0uMXZxd7Qw38f7sOKlBuD1uMXNM_3c&libraries=places&callback=initMap">
+	</script>
+</body>
 </html>
