@@ -1,3 +1,5 @@
+
+
 let restaurants,
   neighborhoods,
   cuisines
@@ -7,12 +9,15 @@ var markers = []
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
-window.onload = function() {
-  updateRestaurants();
-  fetchNeighborhoods();
-  fetchCuisines();
-};
 
+ $(window).scroll(function (event) {
+    var scroll = $(window).scrollTop();
+    // Do something
+    updateRestaurants();
+    fetchNeighborhoods();
+    fetchCuisines();
+
+});
 /**
  * Fetch all neighborhoods and set their HTML.
  */
@@ -71,7 +76,7 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
 /**
  * Initialize Google map, called from HTML.
  */
-window.initMap = () => {
+ initMap = () => {
   let loc = {
     lat: 40.722216,
     lng: -73.987501
@@ -81,7 +86,11 @@ window.initMap = () => {
     center: loc,
     scrollwheel: false
   });
-}
+  document.getElementById('map-container').setAttribute('class', 'map-container');
+  document.getElementById('map').setAttribute('class', 'map');
+
+};
+setTimeout(initMap, 100);
 /**
  * Update page and map for current restaurants.
  */
