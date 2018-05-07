@@ -7,10 +7,11 @@ var markers = []
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
-document.addEventListener('DOMContentLoaded', (event) => {
+window.onload = function() {
+  updateRestaurants();
   fetchNeighborhoods();
   fetchCuisines();
-});
+};
 
 /**
  * Fetch all neighborhoods and set their HTML.
@@ -80,9 +81,7 @@ window.initMap = () => {
     center: loc,
     scrollwheel: false
   });
-  updateRestaurants();
 }
-
 /**
  * Update page and map for current restaurants.
  */
