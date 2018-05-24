@@ -12,7 +12,7 @@
     <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
     <!-- Main stylesheets -->
     <link rel="stylesheet prefetch" href="build/css/main.css">
-    <link rel="stylesheet prefetch" href="build/css/restaurant-info.css">
+    <link rel="stylesheet prefetch" href="css/restaurant-info.css">
     <link rel="stylesheet prefetch" href="build/css/small.css" media="(max-width: 400px)">
     <link rel="stylesheet prefetch" href="build/css/medium600.css" media="(max-width: 600px)">
     <!-- title -->
@@ -55,19 +55,16 @@
       <div class="map" id="map"></div>
     </div>
     <!-- End map -->
-    <form method="post">
-      <label for="username">User Name:
+    <form method="post" class="review-form">
+      <label for="username">User Name:</label>
         <input id="username" type="text" name="username" value="">
-      </label>
       <br>
-      <label for="rating">Rating:
+      <label for="rating">Rating:</label>
         <input id="rating" type="number" name="rating" value="">
-      </label>
       <br>
-      <label for="comment">Add A Commeny:
+      <label for="comment">Add A Commeny:</label>
         <textarea id="comment" rows="4" cols="50"></textarea>
-      </label>
-      <input id="submit" type="submit" value="submit">
+      <input id="submit" type="submit" value="submit" class="review-btn">
     </form>
     <!-- Beginning reviews -->
     <div class="reviews-container" id="reviews-container">
@@ -84,10 +81,14 @@
   <!-- End footer -->
 
   <!-- Beginning scripts -->
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+  crossorigin="anonymous"></script>
   <!-- indexedDB Promise -->
   <script src="build/js/idb.js"></script>
   <!-- Database helpers -->
-  <script src="js/dbhelper.js"></script>
+  <script src="build/js/dbhelper.js"></script>
   <!-- Main javascript file -->
   <script src="js/restaurant_info.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApi0uMXZxd7Qw38f7sOKlBuD1uMXNM_3c&libraries=places&callback=initMap"></script>
