@@ -208,7 +208,7 @@ function createDB() {
         // create 'name' index for reviews
         console.log('Creating a name index for reviews object store');
         var store = upgradeDb.transaction.objectStore('reviews');
-        store.createIndex('name', 'name', {unique: true});
+        store.createIndex('id', 'id', {unique: true});
     }
   });
 

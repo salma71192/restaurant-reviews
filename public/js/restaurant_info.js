@@ -1,6 +1,8 @@
 let restaurant;
 var map;
 
+
+
 /**
  * Initialize Google map, called from HTML.
  */
@@ -177,7 +179,6 @@ fetch('http://localhost:1337/reviews/', {
      storeReviews(data);
    })
   .catch(error => { console.log(error); });
-  console.log('salmaaaaaaaaaaaaaaa from line 163');
 }
 
 
