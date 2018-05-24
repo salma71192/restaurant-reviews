@@ -190,13 +190,24 @@ function createDB() {
         // execute when the database is first created
         // (oldVersion is 0)
       case 1:
+        // Restaurant object store
         console.log('Creating the restaurants object store');
         upgradeDb.createObjectStore('restaurants', {keyPath: 'id'});
+        // Reviews object store
+        console.log('making a new Reviews object store');
+        upgradeDb.createObjectStore('reviews', {keyPath: 'id'});
+
 
       // create 'name' index
       case 2:
-        console.log('Creating a name index');
+        // create 'name' index for restaurants
+        console.log('Creating a name index for restaurant object store');
         var store = upgradeDb.transaction.objectStore('restaurants');
+        store.createIndex('name', 'name', {unique: true});
+
+        // create 'name' index for reviews
+        console.log('Creating a name index for reviews object store');
+        var store = upgradeDb.transaction.objectStore('reviews');
         store.createIndex('name', 'name', {unique: true});
     }
   });
@@ -210,7 +221,7 @@ function createDB() {
         var tx = db.transaction('restaurants', 'readwrite');
         var store = tx.objectStore('restaurants');
         return Promise.all(restaurants.map(function(restaurant){
-          return store.add(restaurant);
+          store.add(restaurant);
         }))
         .then(() => console.log('All restaurants have been added.'));
       });
