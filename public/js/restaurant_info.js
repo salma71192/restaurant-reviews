@@ -139,6 +139,63 @@ createReviewHTML = (review) => {
 }
 
 /**
+ * Collect the review form data.
+ */
+
+postReview = () => {
+   const restaurantId = getParameterByName('id');
+   const username = document.getElementById("username").value;
+   const rating = document.getElementById("rating").value;
+   const comment = document.getElementById("comment").value;
+
+// Create review object
+let review = {
+  restaurant_id: restaurantId,
+  name: username,
+  rating: rating,
+  comments: comment,
+}
+
+function storeReviews(review) {
+
+  // Create reviews object store
+  idb.open('couches-n-restaurants').then(function(upgradeDb) {
+      var tx = upgradeDb.transaction('reviews', 'readwrite');
+      var store = tx.objectStore('reviews');
+        console.log(review);
+        return store.add(review);
+  });
+}
+
+fetch('http://localhost:1337/reviews/', {
+  method: 'POST',
+  body: JSON.stringify(review),
+  headers: { 'content-type': 'application/json' }
+}).then(response => response.json())
+  .then(data => {
+     console.log(data);
+     storeReviews(data);
+   })
+  .catch(error => { console.log(error); });
+  console.log('salmaaaaaaaaaaaaaaa from line 163');
+}
+
+
+function AddComment() {
+  const submit = document.getElementById("submit");
+  submit.addEventListener('click', function(e) {
+    e.preventDefault();
+    postReview();
+    console.log('salma');
+  });
+}
+
+AddComment();
+
+
+
+
+/**
  * Add restaurant name to the breadcrumb navigation menu
  */
 fillBreadcrumb = (restaurant=self.restaurant) => {
