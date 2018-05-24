@@ -55,7 +55,20 @@
       <div class="map" id="map"></div>
     </div>
     <!-- End map -->
-
+    <form method="post">
+      <label for="username">User Name:
+        <input id="username" type="text" name="username" value="">
+      </label>
+      <br>
+      <label for="rating">Rating:
+        <input id="rating" type="number" name="rating" value="">
+      </label>
+      <br>
+      <label for="comment">Add A Commeny:
+        <textarea id="comment" rows="4" cols="50"></textarea>
+      </label>
+      <input id="submit" type="submit" value="submit">
+    </form>
     <!-- Beginning reviews -->
     <div class="reviews-container" id="reviews-container">
       <ul class="reviews-list" id="reviews-list" ></ul>
@@ -74,9 +87,9 @@
   <!-- indexedDB Promise -->
   <script src="build/js/idb.js"></script>
   <!-- Database helpers -->
-  <script src="build/js/dbhelper.js"></script>
+  <script src="js/dbhelper.js"></script>
   <!-- Main javascript file -->
-  <script src="build/js/restaurant_info.js"></script>
+  <script src="js/restaurant_info.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApi0uMXZxd7Qw38f7sOKlBuD1uMXNM_3c&libraries=places&callback=initMap"></script>
 
 <!-- End scripts -->
