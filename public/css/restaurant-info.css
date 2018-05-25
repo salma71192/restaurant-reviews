@@ -125,3 +125,52 @@ textarea {
 .review-btn:hover {
   color: #fff
 }
+
+/* Star Rating */
+
+fieldset, label { margin: 0; padding: 0; }
+body{ margin: 20px; }
+h1 { font-size: 1.5em; margin: 10px auto; }
+
+/****** Style Star Rating Widget *****/
+
+.rating {
+  margin: 0 auto;
+  border: none;
+  float: left;
+}
+
+.rating > input {
+  width: auto;
+  display: none;
+ }
+
+ .rating > label {
+   width: auto;
+   display: inline-block;
+  }
+
+.rating > label:before {
+  margin: 5px;
+  font-size: 1.25em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
+}
+
+
+.rating > label {
+  color: #ddd;
+ float: right;
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label { color: #FFED85;  }
