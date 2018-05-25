@@ -148,12 +148,13 @@ postReview = () => {
    const restaurantId = getParameterByName('id');
    const username = document.getElementById("username").value;
    const comment = document.getElementById("comment").value;
-
+   const rating = star_rating();
+   console.log(rating);
 // Create review object
 let review = {
   restaurant_id: restaurantId,
   name: username,
-  rating: rating,
+  rating:  rating,
   comments: comment,
 }
 
@@ -174,7 +175,6 @@ fetch('http://localhost:1337/reviews/', {
   headers: { 'content-type': 'application/json' }
 }).then(response => response.json())
   .then(data => {
-     console.log(data);
      storeReviews(data);
    })
   .catch(error => { console.log(error); });
@@ -186,7 +186,6 @@ function AddComment() {
   submit.addEventListener('click', function(e) {
     e.preventDefault();
     postReview();
-    console.log('salma');
   });
 }
 
@@ -226,16 +225,18 @@ getParameterByName = (name, url) => {
  * Star Rating.
  */
 
- function star_rating() {
+ var star_rating = function() {
    var starHeader = document.getElementById('rating-header');
    var inputValue = $('input').val();
    var label = $('label');
    var rating = 0;
    label.click(function(e) {
      starHeader.innerHTML = e.target.getAttribute("title");
-     rating = e.target.getAttribute('data-value');
-     console.log(rating);
+     e.target.getAttribute('data-value') = rating;
    });
-
+   return rating;
  }
- star_rating();
+
+ $(".star").click(function() {
+   $(this).toggleClass("star-color");
+ });
