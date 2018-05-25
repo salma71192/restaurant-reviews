@@ -75,7 +75,7 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
 /**
  * Initialize Google map, called from HTML.
  */
- initMap = () => {
+ window.initMap = () => {
   let loc = {
     lat: 40.722216,
     lng: -73.987501
@@ -89,7 +89,6 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
   document.getElementById('map').setAttribute('class', 'map');
 
 };
-setTimeout(initMap, 100);
 /**
  * Update page and map for current restaurants.
  */
