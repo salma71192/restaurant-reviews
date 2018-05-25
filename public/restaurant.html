@@ -10,6 +10,9 @@
     <!-- External stylesheet -->
     <link rel="stylesheet dns-prefetch" src="//normalize-css.googlecode.com/svn/trunk/normalize.css">
     <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+
+
     <!-- Main stylesheets -->
     <link rel="stylesheet prefetch" href="build/css/main.css">
     <link rel="stylesheet prefetch" href="css/restaurant-info.css">
@@ -55,12 +58,19 @@
       <div class="map" id="map"></div>
     </div>
     <!-- End map -->
+    <h1>Pure CSS Star Rating Widget</h1>
+    <fieldset class="rating">
+      <input type="radio" id="star5" name="rating" value="5" /><label class="full" for="star5" title="Awesome - 5 stars"></label>
+      <input type="radio" id="star4" name="rating" value="4" /><label class="full" for="star4" title="Pretty good - 4 stars"></label>
+      <input type="radio" id="star3" name="rating" value="3" /><label class="full" for="star3" title="Meh - 3 stars"></label>
+      <input type="radio" id="star2" name="rating" value="2" /><label class="full" for="star2" title="Kinda bad - 2 stars"></label>
+      <input type="radio" id="star1" name="rating" value="1" /><label class="full" for="star1" title="Sucks big time - 1 star"></label>
+    </fieldset>
+    <br>
+
     <form method="post" class="review-form">
       <label for="username">User Name:</label>
         <input id="username" type="text" name="username" value="">
-      <br>
-      <label for="rating">Rating:</label>
-        <input id="rating" type="number" name="rating" value="">
       <br>
       <label for="comment">Add A Commeny:</label>
         <textarea id="comment" rows="4" cols="50"></textarea>
@@ -85,6 +95,8 @@
   src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
   integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
   crossorigin="anonymous"></script>
+
+
   <!-- indexedDB Promise -->
   <script src="build/js/idb.js"></script>
   <!-- Database helpers -->
