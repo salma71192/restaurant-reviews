@@ -23,6 +23,7 @@ window.initMap = () => {
   });
 }
 
+
 /**
  * Get current restaurant from page URL.
  */
@@ -227,16 +228,16 @@ getParameterByName = (name, url) => {
 
  var star_rating = function() {
    var starHeader = document.getElementById('rating-header');
-   var inputValue = $('input').val();
-   var label = $('label');
+   var label = document.querySelectorAll('label');
    var rating = 0;
    label.click(function(e) {
      starHeader.innerHTML = e.target.getAttribute("title");
-     e.target.getAttribute('data-value') = rating;
+     rating = e.target.getAttribute('data-value');
    });
    return rating;
- }
+ };
 
- $(".star").click(function() {
-   $(this).toggleClass("star-color");
- });
+
+  $(".star").click(function() {
+    $(this).toggleClass("star-color");
+  });
