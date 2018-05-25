@@ -228,7 +228,7 @@ getParameterByName = (name, url) => {
 
  var star_rating = function() {
    var starHeader = document.getElementById('rating-header');
-   var label = document.querySelectorAll('label');
+   var label = $('label');
    var rating = 0;
    label.click(function(e) {
      starHeader.innerHTML = e.target.getAttribute("title");
@@ -237,6 +237,7 @@ getParameterByName = (name, url) => {
    return rating;
  };
 
+star_rating();
 
   $(".star").click(function() {
     $(this).toggleClass("star-color");
