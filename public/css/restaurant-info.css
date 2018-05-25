@@ -172,6 +172,13 @@ h1 { font-size: 1.5em; margin: 10px auto; }
 .rating > input:checked ~ label:hover ~ label { color: #FFED85;  }
 
 /* Favourite buttn */
+.favourite {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 10px auto;
+}
+
 .favourite-btn-header {
   text-align: center;
   width: 100%;
