@@ -1,4 +1,3 @@
-
 const gulp = require('gulp');
 const webp = require('gulp-webp');
 const minify = require('gulp-minify');
@@ -38,7 +37,7 @@ gulp.task('generate-service-worker', function(callback) {
   var rootDir = './';
 
   swPrecache.write(`${rootDir}serviceworker.js`, {
-    staticFileGlobs: [rootDir + '**/*.{js,html,css,png,jpg,gif,svg,eot,ttf,woff}'],
+    staticFileGlobs: ['build/**/*.{js,css,webp}', 'index.html', 'restaurant.html', 'manifest.json'],
     stripPrefix: rootDir
   }, callback);
 });
