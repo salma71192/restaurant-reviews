@@ -132,8 +132,6 @@ fieldset, label { margin: 0; padding: 0; }
 body{ margin: 20px; }
 h1 { font-size: 1.5em; margin: 10px auto; }
 
-/****** Style Star Rating Widget *****/
-
 .rating {
   margin: 0 auto;
   border: none;
@@ -164,8 +162,6 @@ h1 { font-size: 1.5em; margin: 10px auto; }
  float: right;
 }
 
-/***** CSS Magic to Highlight Stars on Hover *****/
-
 .rating > input:checked ~ label, /* show gold star when clicked */
 .rating:not(:checked) > label:hover, /* hover current star */
 .rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
@@ -174,3 +170,21 @@ h1 { font-size: 1.5em; margin: 10px auto; }
 .rating > input:checked ~ label:hover,
 .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
 .rating > input:checked ~ label:hover ~ label { color: #FFED85;  }
+
+/* Favourite buttn */
+.favourite-btn-header {
+  text-align: center;
+  width: 100%;
+}
+
+.fa-star {
+  width: 30px;
+  margin: 10px auto;
+  font-size: 30px;
+  color: #aaa;
+  display: block;
+}
+
+.star-color {
+  color: red;
+}
