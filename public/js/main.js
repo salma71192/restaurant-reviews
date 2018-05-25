@@ -10,8 +10,7 @@ var markers = []
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
 
- $(window).scroll(function (event) {
-    var scroll = $(window).scrollTop();
+ $(document).ready(function() {
     // Do something
     updateRestaurants();
     fetchNeighborhoods();
