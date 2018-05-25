@@ -222,3 +222,17 @@ getParameterByName = (name, url) => {
     return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
+
+/**
+ * Star Rating.
+ */
+
+ function star_rating() {
+   var starHeader = document.getElementById('rating-header');
+   var label = $('label');
+   label.click(function(e) {
+     starHeader.innerHTML = e.target.getAttribute("title");
+   });
+
+ }
+ star_rating();
