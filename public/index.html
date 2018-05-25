@@ -24,8 +24,8 @@
 		<h1 class="site-title"><a href="/" role="link">Restaurant Reviews</a></h1>
 	</header>
 	<main aria-label="main" id="maincontent">
-		<div id="map-container" role="application">
-			<div id="map"></div>
+		<div id="map-container" class="map-container" role="application">
+			<div id="map" class="map"></div>
 		</div>
 		<section aria-label="Filter Results">
 			<div class="filter-options">
@@ -51,12 +51,10 @@
   integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
   crossorigin="anonymous"></script>
 
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApi0uMXZxd7Qw38f7sOKlBuD1uMXNM_3c&libraries=places&callback=initMap"></script>
   <script src="build/js/idb.js"></script>
 	<script charset="utf-8" src="build/js/dbhelper.js" type="application/javascript"></script>
   <!-- indexedDB Promise -->
-	<script charset="utf-8" src="build/js/main.js" type="application/javascript"></script>
-
-
+	<script charset="utf-8" src="js/main.js" type="application/javascript"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApi0uMXZxd7Qw38f7sOKlBuD1uMXNM_3c&libraries=places&callback=initMap"></script>
 </body>
 </html>
