@@ -43,7 +43,19 @@ fetchRestaurantFromURL = (callback) => {
         console.error(error);
         return;
       }
-      fillRestaurantHTML();
+      console.log(id);
+      fetch('http://localhost:1337/reviews/', {
+        method: 'GET'
+      }).then(response => response.json())
+        .then(data => {
+           console.log(data);
+           var selectedReviews = data.filter(function(review) {
+            return review.restaurant_id == id;
+           });
+           console.log(selectedReviews);
+           fillRestaurantHTML(selectedReviews);
+         })
+        .catch(error => { console.log(error); });
       callback(null, restaurant)
     });
   }
