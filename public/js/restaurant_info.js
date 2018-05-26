@@ -135,7 +135,7 @@ createReviewHTML = (review) => {
   li.appendChild(name);
 
   const date = document.createElement('p');
-  date.innerHTML = review.date;
+  date.innerHTML = review.createdAt;
   li.appendChild(date);
 
   const rating = document.createElement('p');
@@ -158,7 +158,7 @@ postReview = () => {
    const username = document.getElementById("username").value;
    const comment = document.getElementById("comment").value;
    const rating = star_rating();
-   console.log(rating);
+
 // Create review object
 let review = {
   restaurant_id: restaurantId,
