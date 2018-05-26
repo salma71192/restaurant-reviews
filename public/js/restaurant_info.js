@@ -43,19 +43,17 @@ fetchRestaurantFromURL = (callback) => {
         console.error(error);
         return;
       }
-      console.log(id);
       fetch('http://localhost:1337/reviews/', {
         method: 'GET'
       }).then(response => response.json())
         .then(data => {
-           console.log(data);
            var selectedReviews = data.filter(function(review) {
             return review.restaurant_id == id;
            });
-           console.log(selectedReviews);
-           fillRestaurantHTML(selectedReviews);
+           fillReviewsHTML(selectedReviews);
          })
         .catch(error => { console.log(error); });
+      fillRestaurantHTML();
       callback(null, restaurant)
     });
   }
@@ -83,8 +81,6 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   if (restaurant.operating_hours) {
     fillRestaurantHoursHTML();
   }
-  // fill reviews
-  fillReviewsHTML();
 }
 
 /**
@@ -110,7 +106,7 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
 /**
  * Create all reviews HTML and add them to the webpage.
  */
-fillReviewsHTML = (reviews = self.restaurant.reviews) => {
+fillReviewsHTML = (reviews) => {
   const container = document.getElementById('reviews-container');
   const title = document.createElement('h2');
   title.innerHTML = 'Reviews';
