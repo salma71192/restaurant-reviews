@@ -26,14 +26,17 @@ class DBHelper {
         const error = (`Request failed. Returned status of ${response.status}`);
         callback(error, null);
       }
-    }, networkError => console.log(networkError.message))
+    }, networkError => {      
+      console.log("salma");
+    })
     .then(function(response) {
-      console.log(response);
       const restaurants = response;
       callback(null, restaurants);
     })
-  //  .catch(err => requetError(err));
-  }
+    .catch(err => requetError(err));
+
+    }
+  
 
   /**
    * Fetch a restaurant by its ID.

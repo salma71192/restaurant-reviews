@@ -54,6 +54,8 @@ fetchRestaurantFromURL = (callback) => {
          })
         .catch(error => { console.log(error); });
       fillRestaurantHTML();
+
+      display_reviews_from_indexedDB();
       callback(null, restaurant)
     });
   }
@@ -150,6 +152,22 @@ createReviewHTML = (review) => {
 }
 
 /**
+ * get reviews from indexedDB.
+ */
+
+function display_reviews_from_indexedDB() {
+
+      idb.open('couches-n-restaurants').then(function(upgradeDb) {
+          var tx = upgradeDb.transaction('reviews', 'readonly');
+          var store = tx.objectStore('reviews');
+            return store.getAll();
+      }).then(function(reviews) {
+          fillReviewsHTML(reviews);
+          console.log(reviews);
+      })
+}
+
+/**
  * Collect the review form data.
  */
 
@@ -177,6 +195,7 @@ function storeReviews(review) {
         return store.add(review);
   });
 }
+
 
 fetch('http://localhost:1337/reviews/', {
   method: 'POST',
@@ -248,5 +267,12 @@ getParameterByName = (name, url) => {
 star_rating();
 
   $(".star").click(function() {
-    $(this).toggleClass("star-color");
+    var self = $(this);
+    var fav = [];
+    if(!self.hasClass('star-color')) {
+        // Run code
+        self.addClass('star-color');
+    } else {
+        self.removeClass('star-color');
+    }
   });
