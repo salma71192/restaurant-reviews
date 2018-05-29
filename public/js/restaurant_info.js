@@ -175,13 +175,13 @@ postReview = () => {
    const restaurantId = getParameterByName('id');
    const username = document.getElementById("username").value;
    const comment = document.getElementById("comment").value;
-   const rating = star_rating();
+   const star_rate = rating;
 
 // Create review object
 let review = {
   restaurant_id: restaurantId,
   name: username,
-  rating:  rating,
+  rating:  star_rate,
   comments: comment,
 }
 
@@ -253,7 +253,6 @@ getParameterByName = (name, url) => {
  * Star Rating.
  */
 
- var star_rating = function() {
    var starHeader = document.getElementById('rating-header');
    var label = $('label');
    var rating = 0;
@@ -261,11 +260,7 @@ getParameterByName = (name, url) => {
      starHeader.innerHTML = e.target.getAttribute("title");
      rating = e.target.getAttribute('data-value');
    });
-   return rating;
- };
-
-star_rating();
-
+  
   $(".star").click(function() {
     var self = $(this);
     var fav = [];
