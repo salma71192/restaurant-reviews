@@ -171,15 +171,15 @@ h1 { font-size: 1.5em; margin: 10px auto; }
 .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
 .rating > input:checked ~ label:hover ~ label { color: #FFED85;  }
 
-/* Favourite buttn */
-.favourite {
+/* Favorite buttn */
+.favorite {
   display: flex;
   flex-direction: column;
   width: 100%;
   margin: 10px auto;
 }
 
-.favourite-btn-header {
+.favorite-btn-header {
   text-align: center;
   width: 100%;
 }
@@ -192,6 +192,6 @@ h1 { font-size: 1.5em; margin: 10px auto; }
   display: block;
 }
 
-.star-color {
+.star-color-red {
   color: red;
 }
