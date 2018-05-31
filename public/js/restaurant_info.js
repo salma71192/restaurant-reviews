@@ -2,7 +2,6 @@ let restaurant;
 var map;
 
 
-
 /**
  * Initialize Google map, called from HTML.
  */
@@ -43,6 +42,8 @@ fetchRestaurantFromURL = (callback) => {
         console.error(error);
         return;
       }
+
+      // display review from the server
       fetch('http://localhost:1337/reviews/', {
         method: 'GET'
       }).then(response => response.json())
@@ -55,7 +56,20 @@ fetchRestaurantFromURL = (callback) => {
         .catch(error => { console.log(error); });
       fillRestaurantHTML();
 
+      // display review from the indexedDB database
       display_reviews_from_indexedDB();
+
+      // mark restaurant as a favorite
+      var favorite = false;
+      $(".star").click(function() {
+        var self = $(this);
+        favorite = true;
+        if(favorite) {
+          self.addClass('star-color-red');
+        }
+        favorite_restaurant(id, favorite);
+      });
+
       callback(null, restaurant)
     });
   }
@@ -260,14 +274,14 @@ getParameterByName = (name, url) => {
      starHeader.innerHTML = e.target.getAttribute("title");
      rating = e.target.getAttribute('data-value');
    });
+
+
+function favorite_restaurant(restaurant_id, is_favorite) {
+
+  fetch(`http://localhost:1337/restaurants/${restaurant_id}/?is_favorite"=${is_favorite}"`, {
+    method: 'PUT',
+    body: JSON.stringify(),
+    headers: { 'content-type': 'application/json' }
+  }).then(response => response.json());
   
-  $(".star").click(function() {
-    var self = $(this);
-    var fav = [];
-    if(!self.hasClass('star-color')) {
-        // Run code
-        self.addClass('star-color');
-    } else {
-        self.removeClass('star-color');
-    }
-  });
+}
