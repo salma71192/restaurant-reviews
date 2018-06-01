@@ -61,13 +61,18 @@ fetchRestaurantFromURL = (callback) => {
 
       // mark restaurant as a favorite
       var favorite = false;
+      var star = $('.fa-star');
       $(".star").click(function() {
-        var self = $(this);
-        favorite = true;
-        if(favorite) {
-          self.addClass('star-color-red');
+        star.toggleClass('star-color-red')
+        
+        if(star.hasClass('star-color-red')) {
+          favorite = true;
+        } else {
+          favorite = false;
         }
+        console.log(favorite);
         favorite_restaurant(id, favorite);
+
       });
 
       callback(null, restaurant)
@@ -278,7 +283,7 @@ getParameterByName = (name, url) => {
 
 function favorite_restaurant(restaurant_id, is_favorite) {
 
-  fetch(`http://localhost:1337/restaurants/${restaurant_id}/?is_favorite"=${is_favorite}"`, {
+  fetch(`http://localhost:1337/restaurants/${restaurant_id}/?is_favorite=${is_favorite}`, {
     method: 'PUT',
     body: JSON.stringify(),
     headers: { 'content-type': 'application/json' }

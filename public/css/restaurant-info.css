@@ -184,6 +184,14 @@ h1 { font-size: 1.5em; margin: 10px auto; }
   width: 100%;
 }
 
+.star {
+  width: 30px;
+  height: 30px;
+  margin: auto;
+  background-color: transparent;
+  display: block !important;
+}
+
 .fa-star {
   width: 30px;
   margin: 10px auto;
