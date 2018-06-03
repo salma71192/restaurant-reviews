@@ -16,7 +16,6 @@ window.initMap = () => {
         center: latlng,
         scrollwheel: false
       });
-      fillBreadcrumb();
       DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
     }
   });
@@ -27,63 +26,80 @@ window.initMap = () => {
  * Get current restaurant from page URL.
  */
 fetchRestaurantFromURL = (callback) => {
-  if (self.restaurant) { // restaurant already fetched!
+  /*if (self.restaurant) { // restaurant already fetched!
     callback(null, self.restaurant)
     return;
   }
   const id = getParameterByName('id');
-  if (!id) { // no id found in URL
-    error = 'No restaurant id in URL'
-    callback(error, null);
-  } else {
-    DBHelper.fetchRestaurantById(id, (error, restaurant) => {
-      self.restaurant = restaurant;
-      if (!restaurant) {
-        console.error(error);
-        return;
-      }
+  */
 
-      // display review from the server
-      fetch('http://localhost:1337/reviews/', {
-        method: 'GET'
-      }).then(response => response.json())
-        .then(data => {
-           var selectedReviews = data.filter(function(review) {
-            return review.restaurant_id == id;
-           });
-           fillReviewsHTML(selectedReviews);
-         })
-        .catch(error => { console.log(error); });
-      fillRestaurantHTML();
+  idb.open('couches-n-restaurants').then(function(upgradeDb) {
+          var tx = upgradeDb.transaction('restaurants', 'readonly');
+          var store = tx.objectStore('restaurants');
+            return store.getAll();
+      }).then(function(restaurants) {
+          return Promise.all(restaurants.map(function(restaurant){
+            var id = restaurant.id;
+            console.log(restaurant);
+            if (!id) { // no id found in URL
+              error = 'No restaurant id in URL'
+              callback(error, null);
+            } else {
+                if (!restaurant) {
+                  console.error(error);
+                  return;
+                }
 
-      // display review from the indexedDB database
-      display_reviews_from_indexedDB();
 
-      // mark restaurant as a favorite
-      var favorite = false;
-      var star = $('.fa-star');
-      $(".star").click(function() {
-        star.toggleClass('star-color-red')
-        
-        if(star.hasClass('star-color-red')) {
-          favorite = true;
-        } else {
-          favorite = false;
-        }
-        console.log(favorite);
-        favorite_restaurant(id, favorite);
+                fillBreadcrumb(restaurant);
+                fillRestaurantHTML(restaurant);
 
-      });
 
-      callback(null, restaurant)
-    });
-  }
+                // display review from the server
+                fetch('http://localhost:1337/reviews/', {
+                  method: 'GET'
+                }).then(response => response.json())
+                  .then(data => {
+                     var selectedReviews = data.filter(function(review) {
+                      return review.restaurant_id == id;
+                     });
+                     fillReviewsHTML(selectedReviews);
+                   })
+                  .catch(error => { console.log(error); });
+
+
+                // display review from the indexedDB database
+                display_reviews_from_indexedDB();
+
+                // mark restaurant as a favorite
+                var favorite = false;
+                var star = $('.fa-star');
+                $(".star").click(function() {
+                  star.toggleClass('star-color-red')
+                  
+                  if(star.hasClass('star-color-red')) {
+                    favorite = true;
+                  } else {
+                    favorite = false;
+                  }
+                  console.log(favorite);
+                  favorite_restaurant(id, favorite);
+
+                });
+
+                callback(null, restaurant);
+            }
+          }))
+      })
+
+
+  
 }
 
 /**
  * Create restaurant HTML and add it to the webpage
  */
-fillRestaurantHTML = (restaurant = self.restaurant) => {
+fillRestaurantHTML = (restaurant) => {
   const name = document.getElementById('restaurant-name');
   name.innerHTML = restaurant.name;
 
@@ -107,7 +123,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
 /**
  * Create restaurant operating hours HTML table and add it to the webpage.
  */
-fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => {
+fillRestaurantHoursHTML = (operatingHours) => {
   const hours = document.getElementById('restaurant-hours');
   for (let key in operatingHours) {
     const row = document.createElement('tr');
@@ -244,7 +260,7 @@ AddComment();
 /**
  * Add restaurant name to the breadcrumb navigation menu
  */
-fillBreadcrumb = (restaurant=self.restaurant) => {
+fillBreadcrumb = (restaurant) => {
   const breadcrumb = document.getElementById('breadcrumb');
   const ul = document.getElementById('breadcrumb-ul');
   const li = document.createElement('li');

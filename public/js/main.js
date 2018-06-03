@@ -22,25 +22,40 @@ var markers = []
  */
 fetchNeighborhoods = () => {
   DBHelper.fetchNeighborhoods((error, neighborhoods) => {
-    if (error) { // Got an error
-      console.error(error);
-    } else {
-      self.neighborhoods = neighborhoods;
-      fillNeighborhoodsHTML();
-    }
+    
+    idb.open('couches-n-restaurants').then(function(upgradeDb) {
+          var tx = upgradeDb.transaction('neighborhoods', 'readonly');
+          var store = tx.objectStore('neighborhoods');
+            return store.getAll();
+      }).then(function(indexedNeighborhoods) {
+          if (indexedNeighborhoods.length === 0) { // Got an error!
+            console.error(error);
+            self.neighborhoods = neighborhoods;
+            fillNeighborhoodsHTML();
+          } else {            
+            console.log(indexedNeighborhoods);
+            console.log('37');
+            fillNeighborhoodsHTML(indexedNeighborhoods);
+
+          }
+      })
   });
 }
 
 /**
  * Set neighborhoods HTML.
  */
-fillNeighborhoodsHTML = (neighborhoods = self.neighborhoods) => {
+fillNeighborhoodsHTML = (neighborhoods) => {
+  console.log(neighborhoods[0].neighborhoodNames);
   const select = document.getElementById('neighborhoods-select');
-  neighborhoods.forEach(neighborhood => {
+  var neighborhoodName = neighborhoods[0].neighborhoodNames;
+  neighborhoodName.forEach(neighborhood => {
     const option = document.createElement('option');
-    option.innerHTML = neighborhood;
-    option.value = neighborhood;
-    select.append(option);
+      console.log(neighborhood)
+      option.innerHTML = neighborhood
+      option.value = neighborhood;
+      select.append(option);
+    
   });
 }
 
@@ -49,26 +64,38 @@ fillNeighborhoodsHTML = (neighborhoods = self.neighborhoods) => {
  */
 fetchCuisines = () => {
   DBHelper.fetchCuisines((error, cuisines) => {
-    if (error) { // Got an error!
-      console.error(error);
-    } else {
-      self.cuisines = cuisines;
-      fillCuisinesHTML();
-    }
+    idb.open('couches-n-restaurants').then(function(upgradeDb) {
+          var tx = upgradeDb.transaction('cuisines', 'readonly');
+          var store = tx.objectStore('cuisines');
+            return store.getAll();
+      }).then(function(indexedCcuisines) {
+          if (indexedCcuisines.length === 0) { // Got an error!
+            console.error(error);
+            self.cuisines = cuisines;
+            fillCuisinesHTML();
+          } else {            
+            console.log(indexedCcuisines);
+            console.log('78');
+            fillCuisinesHTML(indexedCcuisines);
+          }
+      })
+
   });
 }
 
 /**
  * Set cuisines HTML.
  */
-fillCuisinesHTML = (cuisines = self.cuisines) => {
+fillCuisinesHTML = (cuisines) => {
+  console.log(cuisines[0].cuisines);
   const select = document.getElementById('cuisines-select');
-
-  cuisines.forEach(cuisine => {
+  var cuisinesNames = cuisines[0].cuisinesNames;
+  cuisinesNames.forEach(cuisine => {
     const option = document.createElement('option');
-    option.innerHTML = cuisine;
-    option.value = cuisine;
-    select.append(option);
+      console.log(cuisine)
+      option.innerHTML = cuisine
+      option.value = cuisine;
+      select.append(option);
   });
 }
 
@@ -101,12 +128,26 @@ updateRestaurants = () => {
   const neighborhood = nSelect[nIndex].value;
 
   DBHelper.fetchRestaurantByCuisineAndNeighborhood(cuisine, neighborhood, (error, restaurants) => {
-    if (error) { // Got an error!
-      console.error(error);
-    } else {
-      resetRestaurants(restaurants);
-      fillRestaurantsHTML();
-    }
+
+    idb.open('couches-n-restaurants').then(function(upgradeDb) {
+          var tx = upgradeDb.transaction('restaurants', 'readonly');
+          var store = tx.objectStore('restaurants');
+            return store.getAll();
+      }).then(function(indexedRestaurants) {
+          if (indexedRestaurants.length === 0) { // Got an error!
+            console.error(error);
+            resetRestaurants(restaurants);
+            fillRestaurantsHTML(self.restaurants);
+          } else {            
+            console.log(indexedRestaurants);
+            console.log('109');
+            resetRestaurants(indexedRestaurants);
+            fillRestaurantsHTML(indexedRestaurants);
+          }
+      })
+
+    
+
   })
 }
 
@@ -128,12 +169,12 @@ resetRestaurants = (restaurants) => {
 /**
  * Create all restaurants HTML and add them to the webpage.
  */
-fillRestaurantsHTML = (restaurants = self.restaurants) => {
+fillRestaurantsHTML = (restaurants) => {
   const ul = document.getElementById('restaurants-list');
   restaurants.forEach(restaurant => {
     ul.append(createRestaurantHTML(restaurant));
   });
-  addMarkersToMap();
+  addMarkersToMap(restaurants);
 }
 
 /**
@@ -175,7 +216,7 @@ createRestaurantHTML = (restaurant) => {
 /**
  * Add markers for current restaurants to the map.
  */
-addMarkersToMap = (restaurants = self.restaurants) => {
+addMarkersToMap = (restaurants) => {
   restaurants.forEach(restaurant => {
     // Add marker to the map
     const marker = DBHelper.mapMarkerForRestaurant(restaurant, self.map);

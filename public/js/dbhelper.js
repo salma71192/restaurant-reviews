@@ -33,7 +33,7 @@ class DBHelper {
       const restaurants = response;
       callback(null, restaurants);
     })
-    .catch(err => requetError(err));
+    .catch(err => requestError(err));
 
     }
   
@@ -196,9 +196,18 @@ function createDB() {
         // Restaurant object store
         console.log('Creating the restaurants object store');
         upgradeDb.createObjectStore('restaurants', {keyPath: 'id'});
+
         // Reviews object store
         console.log('making a new Reviews object store');
         upgradeDb.createObjectStore('reviews', {keyPath: 'id'});
+
+        // neighborhoods object store
+        console.log('making a new neighborhoods object store');
+        upgradeDb.createObjectStore('neighborhoods', {keyPath: 'id'});
+
+        // cuisines object store
+        console.log('making a new cuisines object store');
+        upgradeDb.createObjectStore('cuisines', {keyPath: 'id'});
 
 
       // create 'name' index
@@ -230,5 +239,30 @@ function createDB() {
       });
     });
   })();
+
+  var neighborhoods = {
+    id: 1,
+    neighborhoodNames: ["Manhattan", "Brooklyn", "Queens"]
+  };
+  // Create neighborhood object store
+  idb.open('couches-n-restaurants').then(function(upgradeDb) {
+      var tx = upgradeDb.transaction('neighborhoods', 'readwrite');
+      var store = tx.objectStore('neighborhoods');
+        console.log(neighborhoods);
+        return store.add(neighborhoods);
+  });
+
+  var cuisines = {
+    id: 1,
+    cuisinesNames: ["Asian", "Pizza", "American", "Mexican"]
+  };
+  // Create neighborhood object store
+  idb.open('couches-n-restaurants').then(function(upgradeDb) {
+      var tx = upgradeDb.transaction('cuisines', 'readwrite');
+      var store = tx.objectStore('cuisines');
+        console.log(cuisines);
+        return store.add(cuisines);
+  });
+
 }
 createDB();

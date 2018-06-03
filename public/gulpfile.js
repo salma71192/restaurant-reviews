@@ -32,14 +32,5 @@ gulp.task('pack-css', function () {
    .pipe(gulp.dest('build/css'));
 });
 
-gulp.task('generate-service-worker', function(callback) {
-  var swPrecache = require('sw-precache');
-  var rootDir = './';
 
-  swPrecache.write(`${rootDir}serviceworker.js`, {
-    staticFileGlobs: ['build/**/*.{js,css,webp}', 'index.html', 'restaurant.html', 'manifest.json'],
-    stripPrefix: rootDir
-  }, callback);
-});
-
-gulp.task('default', ['convert-jpg-to-webp', 'convert-png-to-webp', 'pack-js', 'pack-css', 'generate-service-worker']);
+gulp.task('default', ['convert-jpg-to-webp', 'convert-png-to-webp', 'pack-js', 'pack-css']);
