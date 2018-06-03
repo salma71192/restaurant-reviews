@@ -6,6 +6,7 @@ var map;
  * Initialize Google map, called from HTML.
  */
 window.initMap = () => {
+  restaurant = self.restaurant;
   fetchRestaurantFromURL((error, restaurant) => {
     var latlng = restaurant.latlng;
     if (error) { // Got an error!
@@ -116,7 +117,7 @@ fillRestaurantHTML = (restaurant) => {
 
   // fill operating hours
   if (restaurant.operating_hours) {
-    fillRestaurantHoursHTML();
+    fillRestaurantHoursHTML(restaurant.operating_hours);
   }
 }
 

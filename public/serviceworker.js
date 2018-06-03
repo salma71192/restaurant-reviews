@@ -15,7 +15,8 @@ var urlsToCache = [
   'build/js/dbhelper.js',
   'build/js/idb.js',
   'build/js/main.js',
-  'build/js/restaurant_info.js'
+  'build/js/restaurant_info.js',
+  'restaurant.html'
 ];
 
 self.addEventListener('install', function(event) {
