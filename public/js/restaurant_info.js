@@ -55,7 +55,8 @@ fetchRestaurantFromURL = (callback) => {
                 fillBreadcrumb(restaurant);
                 fillRestaurantHTML(restaurant);
 
-
+                // display review from the indexedDB database
+                display_reviews_from_indexedDB();
                 // display review from the server
                 fetch('http://localhost:1337/reviews/', {
                   method: 'GET'
@@ -69,8 +70,6 @@ fetchRestaurantFromURL = (callback) => {
                   .catch(error => { console.log(error); });
 
 
-                // display review from the indexedDB database
-                display_reviews_from_indexedDB();
 
                 // mark restaurant as a favorite
                 var favorite = false;
@@ -231,18 +230,24 @@ function storeReviews(review) {
         console.log(review);
         return store.add(review);
   });
+
+  const ul = document.getElementById('reviews-list');
+  ul.appendChild(createReviewHTML(review));
 }
 
-
+// Post a review to indexedDB
 fetch('http://localhost:1337/reviews/', {
   method: 'POST',
   body: JSON.stringify(review),
   headers: { 'content-type': 'application/json' }
 }).then(response => response.json())
   .then(data => {
+    console.log(data.id);
      storeReviews(data);
    })
   .catch(error => { console.log(error); });
+
+
 }
 
 
@@ -252,6 +257,7 @@ function AddComment() {
     e.preventDefault();
     postReview();
   });
+
 }
 
 AddComment();
