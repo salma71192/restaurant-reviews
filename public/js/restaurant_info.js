@@ -74,7 +74,13 @@ fetchRestaurantFromURL = (callback) => {
 
                 // mark restaurant as a favorite
                 var favorite = false;
+
                 var star = $('.fa-star');
+                if(restaurant.is_favorite = "true"){
+                 if(!star.hasClass('star-color-red')) {
+                    star.toggleClass('star-color-red');
+                   }
+                }
                 $(".star").click(function() {
                   star.toggleClass('star-color-red')
                   
@@ -84,8 +90,7 @@ fetchRestaurantFromURL = (callback) => {
                     favorite = false;
                   }
                   console.log(favorite);
-                  favorite_restaurant(id, favorite);
-
+                  favorite_restaurant(id, favorite, restaurant);
                 });
 
                 callback(null, restaurant);
@@ -294,7 +299,7 @@ getParameterByName = (name, url) => {
    });
 
 
-function favorite_restaurant(restaurant_id, is_favorite) {
+function favorite_restaurant(restaurant_id, is_favorite, restaurant) {
 
   fetch(`http://localhost:1337/restaurants/${restaurant_id}/?is_favorite=${is_favorite}`, {
     method: 'PUT',
