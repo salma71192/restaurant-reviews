@@ -16,7 +16,9 @@ var urlsToCache = [
   'build/js/idb.js',
   'build/js/main.js',
   'build/js/restaurant_info.js',
-  'restaurant.html'
+  'restaurant.html',
+  'https://fonts.googleapis.com/css?family=Coda',
+  'https://code.jquery.com/jquery-3.3.1.slim.min.js'
 ];
 
 self.addEventListener('install', function(event) {
