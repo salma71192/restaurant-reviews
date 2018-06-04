@@ -6,18 +6,17 @@ var map;
  * Initialize Google map, called from HTML.
  */
 window.initMap = () => {
-  restaurant = self.restaurant;
   fetchRestaurantFromURL((error, restaurant) => {
     var latlng = restaurant.latlng;
     if (error) { // Got an error!
       console.error(error);
     } else {
-      self.map = new google.maps.Map(document.getElementById('map'), {
+      restaurant.map = new google.maps.Map(document.getElementById('map'), {
         zoom: 16,
         center: latlng,
         scrollwheel: false
       });
-      DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
+      DBHelper.mapMarkerForRestaurant(restaurant, restaurant.map);
     }
   });
 }
@@ -30,17 +29,18 @@ fetchRestaurantFromURL = (callback) => {
   /*if (self.restaurant) { // restaurant already fetched!
     callback(null, self.restaurant)
     return;
-  }
-  const id = getParameterByName('id');
-  */
+  }*/
+  let id = getParameterByName('id');
+  console.log(id)
 
   idb.open('couches-n-restaurants').then(function(upgradeDb) {
           var tx = upgradeDb.transaction('restaurants', 'readonly');
           var store = tx.objectStore('restaurants');
             return store.getAll();
       }).then(function(restaurants) {
-          return Promise.all(restaurants.map(function(restaurant){
-            var id = restaurant.id;
+          return Promise.all(restaurants.filter(function(restaurant){
+            return id == restaurant.id;
+        }).map(function(restaurant) {
             console.log(restaurant);
             if (!id) { // no id found in URL
               error = 'No restaurant id in URL'
