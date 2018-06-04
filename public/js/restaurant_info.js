@@ -146,9 +146,6 @@ fillRestaurantHoursHTML = (operatingHours) => {
  */
 fillReviewsHTML = (reviews) => {
   const container = document.getElementById('reviews-container');
-  const title = document.createElement('h2');
-  title.innerHTML = 'Reviews';
-  container.appendChild(title);
 
   if (!reviews) {
     const noReviews = document.createElement('p');
@@ -199,7 +196,6 @@ function display_reviews_from_indexedDB() {
             return store.getAll();
       }).then(function(reviews) {
           fillReviewsHTML(reviews);
-          console.log(reviews);
       })
 }
 
