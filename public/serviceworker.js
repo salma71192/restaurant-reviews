@@ -18,7 +18,17 @@ var urlsToCache = [
   'build/js/restaurant_info.js',
   'restaurant.html',
   'https://fonts.googleapis.com/css?family=Coda',
-  'https://code.jquery.com/jquery-3.3.1.slim.min.js'
+  'https://code.jquery.com/jquery-3.3.1.slim.min.js',
+  'build/img/1.webp',
+  'build/img/2.webp',
+  'build/img/3.webp',
+  'build/img/4.webp',
+  'build/img/5.webp',
+  'build/img/6.webp',
+  'build/img/7.webp',
+  'build/img/8.webp',
+  'build/img/9.webp',
+  'build/img/10.webp',
 ];
 
 self.addEventListener('install', function(event) {

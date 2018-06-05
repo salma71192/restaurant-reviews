@@ -228,8 +228,6 @@ function createDB() {
   (function storeRestaurants() {
     dbPromise.then(function(db) {
       DBHelper.fetchRestaurants((error, restaurants) => {
-        console.log(restaurants);
-
         var tx = db.transaction('restaurants', 'readwrite');
         var store = tx.objectStore('restaurants');
         return Promise.all(restaurants.map(function(restaurant){
@@ -248,7 +246,6 @@ function createDB() {
   idb.open('couches-n-restaurants').then(function(upgradeDb) {
       var tx = upgradeDb.transaction('neighborhoods', 'readwrite');
       var store = tx.objectStore('neighborhoods');
-        console.log(neighborhoods);
         return store.put(neighborhoods);
   });
 
@@ -260,7 +257,6 @@ function createDB() {
   idb.open('couches-n-restaurants').then(function(upgradeDb) {
       var tx = upgradeDb.transaction('cuisines', 'readwrite');
       var store = tx.objectStore('cuisines');
-        console.log(cuisines);
         return store.put(cuisines);
   });
 
