@@ -199,15 +199,15 @@ function createDB() {
 
         // Reviews object store
         console.log('making a new Reviews object store');
-        upgradeDb.createObjectStore('reviews', {keyPath: 'id'});
+        upgradeDb.createObjectStore('reviews', {keyPath: 'restaurant_id'});
 
         // neighborhoods object store
         console.log('making a new neighborhoods object store');
-        upgradeDb.createObjectStore('neighborhoods', {keyPath: 'id'});
+        upgradeDb.createObjectStore('neighborhoods', {keyPath: 'neighborhoodNames'});
 
         // cuisines object store
         console.log('making a new cuisines object store');
-        upgradeDb.createObjectStore('cuisines', {keyPath: 'id'});
+        upgradeDb.createObjectStore('cuisines', {keyPath: 'cuisinesNames'});
 
 
       // create 'name' index
@@ -233,7 +233,7 @@ function createDB() {
         var tx = db.transaction('restaurants', 'readwrite');
         var store = tx.objectStore('restaurants');
         return Promise.all(restaurants.map(function(restaurant){
-          store.add(restaurant);
+          store.put(restaurant);
         }))
         .then(() => console.log('All restaurants have been added.'));
       });
@@ -249,7 +249,7 @@ function createDB() {
       var tx = upgradeDb.transaction('neighborhoods', 'readwrite');
       var store = tx.objectStore('neighborhoods');
         console.log(neighborhoods);
-        return store.add(neighborhoods);
+        return store.put(neighborhoods);
   });
 
   var cuisines = {
@@ -261,7 +261,7 @@ function createDB() {
       var tx = upgradeDb.transaction('cuisines', 'readwrite');
       var store = tx.objectStore('cuisines');
         console.log(cuisines);
-        return store.add(cuisines);
+        return store.put(cuisines);
   });
 
 }

@@ -228,7 +228,7 @@ function storeReviews(review) {
       var tx = upgradeDb.transaction('reviews', 'readwrite');
       var store = tx.objectStore('reviews');
         console.log(review);
-        return store.add(review);
+        return store.put(review);
   });
 
   const ul = document.getElementById('reviews-list');
