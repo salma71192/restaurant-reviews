@@ -201,6 +201,10 @@ function createDB() {
         console.log('making a new Reviews object store');
         upgradeDb.createObjectStore('reviews', {keyPath: 'restaurant_id'});
 
+        // Reviews object store
+        console.log('making a new offline-reviews object store');
+        upgradeDb.createObjectStore('offline-reviews', {keyPath: 'name'});
+
         // neighborhoods object store
         console.log('making a new neighborhoods object store');
         upgradeDb.createObjectStore('neighborhoods', {keyPath: 'neighborhoodNames'});

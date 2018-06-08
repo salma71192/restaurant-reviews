@@ -2,6 +2,7 @@ let restaurant;
 var map;
 
 
+
 /**
  * Initialize Google map, called from HTML.
  */
@@ -55,21 +56,12 @@ fetchRestaurantFromURL = (callback) => {
                 fillBreadcrumb(restaurant);
                 fillRestaurantHTML(restaurant);
 
-                // display review from the indexedDB database
-                display_reviews_from_indexedDB();
                 // display review from the server
-                fetch('http://localhost:1337/reviews/', {
-                  method: 'GET'
-                }).then(response => response.json())
-                  .then(data => {
-                     var selectedReviews = data.filter(function(review) {
-                      return review.restaurant_id == id;
-                     });
-                     fillReviewsHTML(selectedReviews);
-                   })
-                  .catch(error => { console.log(error); });
+                get_reviews_from_server(id);
 
-
+                if(navigator.onLine) {
+                  update_offline_review(id);
+                }
 
                 // mark restaurant as a favorite
                 var favorite = false;
@@ -189,19 +181,88 @@ createReviewHTML = (review) => {
 }
 
 /**
- * get reviews from indexedDB.
+ * get reviews from indexedDB then display them in the reviews list.
  */
 
-function display_reviews_from_indexedDB() {
+function update_offline_review(id) {
 
-      idb.open('couches-n-restaurants').then(function(upgradeDb) {
-          var tx = upgradeDb.transaction('reviews', 'readonly');
-          var store = tx.objectStore('reviews');
-            return store.getAll();
-      }).then(function(reviews) {
-          fillReviewsHTML(reviews);
-      })
+      
+        idb.open('couches-n-restaurants').then(function(upgradeDb) {
+            var tx = upgradeDb.transaction('offline-reviews', 'readonly');
+            var store = tx.objectStore('offline-reviews');
+              return store.getAll();
+        }).then(function(reviews) {
+          reviews.filter(function(review) {
+            review.restaurant_id = id;
+          }).map(function(review) {
+            console.log(review);
+            // Post a review to indexedDB
+            fetch('http://localhost:1337/reviews/', {
+              method: 'POST',
+              body: JSON.stringify(review),
+              headers: { 'content-type': 'application/json' }
+            }).then(response => response.json())
+              .then(data => {
+                console.log(data.id);
+                storeReview(data);
+               })
+            .catch(error => { console.log(error); });
+          })
+        })
+
+        idb.delete('offline-reviews');
+      
 }
+
+/**
+ * get reviews from server then cache them in the reviews store.
+ */
+
+function get_reviews_from_server(restaurant_id) {
+  fetch(`http://localhost:1337/reviews/?restaurant_id=${restaurant_id}`, {
+    method: 'GET'
+  }).then(response => response.json())
+    .then(restaurant_reviews => {
+       console.log(restaurant_reviews);
+       storeReviews(restaurant_reviews);
+       fillReviewsHTML(restaurant_reviews);
+     }).catch(error => { console.log(error); });
+}
+
+/**
+ * Put review into reviews store.
+ */
+
+function storeReviews(Cached_reviews) {
+
+    // Create reviews object store
+    idb.open('couches-n-restaurants').then(function(upgradeDb) {
+        var tx = upgradeDb.transaction('reviews', 'readwrite');
+        var store = tx.objectStore('reviews');
+
+        return Promise.all(Cached_reviews.map(function(review){
+          store.put(review);
+          console.log(review);
+        }))
+        .then(() => console.log('All reviews have been added.'));
+
+    });
+
+  }
+
+function storeReview(single_review) {
+
+    // Create reviews object store
+    idb.open('couches-n-restaurants').then(function(upgradeDb) {
+        var tx = upgradeDb.transaction('reviews', 'readwrite');
+        var store = tx.objectStore('reviews');
+        console.log(single_review);
+        store.put(single_review);
+    });
+
+    const ul = document.getElementById('reviews-list');
+    ul.appendChild(createReviewHTML(single_review));
+  }
 
 /**
  * Collect the review form data.
@@ -221,31 +282,26 @@ let review = {
   comments: comment,
 }
 
-function storeReviews(review) {
-
-  // Create reviews object store
-  idb.open('couches-n-restaurants').then(function(upgradeDb) {
-      var tx = upgradeDb.transaction('reviews', 'readwrite');
-      var store = tx.objectStore('reviews');
-        console.log(review);
-        return store.put(review);
-  });
-
-  const ul = document.getElementById('reviews-list');
-  ul.appendChild(createReviewHTML(review));
-}
-
 // Post a review to indexedDB
-fetch('http://localhost:1337/reviews/', {
-  method: 'POST',
-  body: JSON.stringify(review),
-  headers: { 'content-type': 'application/json' }
-}).then(response => response.json())
-  .then(data => {
-    console.log(data.id);
-     storeReviews(data);
-   })
+  fetch('http://localhost:1337/reviews/', {
+    method: 'POST',
+    body: JSON.stringify(review),
+    headers: { 'content-type': 'application/json' }
+  }).then(response => response.json())
+    .then(data => {
+      console.log(data.id);
+      storeReview(data);
+     })
   .catch(error => { console.log(error); });
+
+
+if(!navigator.onLine) {
+  idb.open('couches-n-restaurants').then(function(upgradeDb) {
+        var tx = upgradeDb.transaction('offline-reviews', 'readwrite');
+        var store = tx.objectStore('offline-reviews');
+          return store.put(review);
+    });
+}
 
 
 }
