@@ -354,7 +354,6 @@ function favorite_restaurant(restaurant_id, is_favorite, restaurant) {
     headers: { 'content-type': 'application/json' }
   }).then(response => response.json())
   .then(response => {console.log(response.is_favorite)
-
   });
   
 
@@ -362,22 +361,31 @@ function favorite_restaurant(restaurant_id, is_favorite, restaurant) {
 
 function display_favorite(restaurant, id) {
   var star = $('.fa-star');
-      if(restaurant.is_favorite === "true"){
-       if(!star.hasClass('star-color-red')) {
-          star.addClass('star-color-red');
-         } 
-      } 
 
-      $(".star").click(function() {
-        star.toggleClass('star-color-red');
-        if(star.hasClass('star-color-red')) {
-          var favorite = "true";
-          favorite_restaurant(id, favorite, restaurant);
-        } else {
-          var favorite = "false";
-          favorite_restaurant(id, favorite, restaurant);
+       
+
+  $(".star").click(function() {
+    star.toggleClass('star-color-red');
+    if(star.hasClass('star-color-red')) {
+      var favorite = "true";
+      favorite_restaurant(id, favorite, restaurant);
+    } else {
+      var favorite = "false";
+      favorite_restaurant(id, favorite, restaurant);
+    }
+    console.log(favorite);
+  });
+
+fetch(`http://localhost:1337/restaurants/${id}/?is_favorite=true`, {
+        method: 'GET'
+      }).then(response => response.json())
+      .then(function (response) {
+        console.log(response.is_favorite);
+        if(response.is_favorite == "true") {
+          star.addClass('star-color-red');
+          console.log("I'm red");
         }
-        console.log(favorite);
+        
       });
 
 
