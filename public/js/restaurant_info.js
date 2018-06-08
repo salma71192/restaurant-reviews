@@ -19,6 +19,8 @@ window.initMap = () => {
       });
       DBHelper.mapMarkerForRestaurant(restaurant, restaurant.map);
     }
+
+
   });
 }
 
@@ -59,30 +61,9 @@ fetchRestaurantFromURL = (callback) => {
                 // display review from the server
                 get_reviews_from_server(id);
 
-                if(navigator.onLine) {
-                  update_offline_review(id);
-                }
 
                 // mark restaurant as a favorite
-                var favorite = false;
-
-                var star = $('.fa-star');
-                if(restaurant.is_favorite = "true"){
-                 if(!star.hasClass('star-color-red')) {
-                    star.toggleClass('star-color-red');
-                   }
-                }
-                $(".star").click(function() {
-                  star.toggleClass('star-color-red')
-                  
-                  if(star.hasClass('star-color-red')) {
-                    favorite = true;
-                  } else {
-                    favorite = false;
-                  }
-                  console.log(favorite);
-                  favorite_restaurant(id, favorite, restaurant);
-                });
+                display_favorite(restaurant, id);
 
                 callback(null, restaurant);
             }
@@ -184,34 +165,36 @@ createReviewHTML = (review) => {
  * get reviews from indexedDB then display them in the reviews list.
  */
 
-function update_offline_review(id) {
+function update_offline_review() {      
+  idb.open('couches-n-restaurants').then(function(upgradeDb) {
+      var tx = upgradeDb.transaction('offline-reviews', 'readonly');
+      var store = tx.objectStore('offline-reviews');
+        return store.getAll();
+  }).then(function(reviews) {
 
-      
-        idb.open('couches-n-restaurants').then(function(upgradeDb) {
-            var tx = upgradeDb.transaction('offline-reviews', 'readonly');
-            var store = tx.objectStore('offline-reviews');
-              return store.getAll();
-        }).then(function(reviews) {
-          reviews.filter(function(review) {
-            review.restaurant_id = id;
-          }).map(function(review) {
-            console.log(review);
-            // Post a review to indexedDB
-            fetch('http://localhost:1337/reviews/', {
-              method: 'POST',
-              body: JSON.stringify(review),
-              headers: { 'content-type': 'application/json' }
-            }).then(response => response.json())
-              .then(data => {
-                console.log(data.id);
-                storeReview(data);
-               })
-            .catch(error => { console.log(error); });
-          })
-        })
+     reviews.map(function(review) {
+       // Post a review to indexedDB
+      fetch('http://localhost:1337/reviews/', {
+        method: 'POST',
+        body: JSON.stringify(review),
+        headers: { 'content-type': 'application/json' }
+      }).then(response => response.json())
+      .catch(error => { console.log(error); }); 
+     })   
+  })
 
-        idb.delete('offline-reviews');
-      
+  idb.open('couches-n-restaurants').then(function(upgradeDb) {
+      var tx = upgradeDb.transaction('offline-reviews', 'readwrite');
+      var store = tx.objectStore('offline-reviews');
+        return store.clear();
+  }).then(function(data) {
+    console.log('store cleared');
+  })
+  
+}
+
+if(navigator.onLine) {
+  update_offline_review();
 }
 
 /**
@@ -242,7 +225,6 @@ function storeReviews(Cached_reviews) {
 
         return Promise.all(Cached_reviews.map(function(review){
           store.put(review);
-          console.log(review);
         }))
         .then(() => console.log('All reviews have been added.'));
 
@@ -283,7 +265,19 @@ let review = {
 }
 
 // Post a review to indexedDB
-  fetch('http://localhost:1337/reviews/', {
+
+if(!navigator.onLine) {
+    idb.open('couches-n-restaurants').then(function(upgradeDb) {
+        var tx = upgradeDb.transaction('offline-reviews', 'readwrite');
+        var store = tx.objectStore('offline-reviews');
+        return store.put(review);
+    });
+
+  const ul = document.getElementById('reviews-list');
+  ul.appendChild(createReviewHTML(review));
+} else {
+
+fetch('http://localhost:1337/reviews/', {
     method: 'POST',
     body: JSON.stringify(review),
     headers: { 'content-type': 'application/json' }
@@ -294,16 +288,7 @@ let review = {
      })
   .catch(error => { console.log(error); });
 
-
-if(!navigator.onLine) {
-  idb.open('couches-n-restaurants').then(function(upgradeDb) {
-        var tx = upgradeDb.transaction('offline-reviews', 'readwrite');
-        var store = tx.objectStore('offline-reviews');
-          return store.put(review);
-    });
 }
-
-
 }
 
 
@@ -367,6 +352,33 @@ function favorite_restaurant(restaurant_id, is_favorite, restaurant) {
     method: 'PUT',
     body: JSON.stringify(),
     headers: { 'content-type': 'application/json' }
-  }).then(response => response.json());
+  }).then(response => response.json())
+  .then(response => {console.log(response.is_favorite)
+
+  });
   
+
+}
+
+function display_favorite(restaurant, id) {
+  var star = $('.fa-star');
+      if(restaurant.is_favorite === "true"){
+       if(!star.hasClass('star-color-red')) {
+          star.addClass('star-color-red');
+         } 
+      } 
+
+      $(".star").click(function() {
+        star.toggleClass('star-color-red');
+        if(star.hasClass('star-color-red')) {
+          var favorite = "true";
+          favorite_restaurant(id, favorite, restaurant);
+        } else {
+          var favorite = "false";
+          favorite_restaurant(id, favorite, restaurant);
+        }
+        console.log(favorite);
+      });
+
+
 }
